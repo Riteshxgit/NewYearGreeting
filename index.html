@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Happy New Year 2024! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Happy New Year 2024! 🎉</h1>
+        <p>Wishing you a year filled with joy, success, and endless opportunities!</p>
+        <button id="surprise-button">Click for a Surprise</button>
+    </div>
+
+    <canvas id="confetti"></canvas>
+
+    <script>
+        // Confetti effect
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const confetti = [];
+        const colors = ['#FF4136', '#FF851B', '#7FDBFF', '#B10DC9', '#2ECC40'];
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 6 + 2,
+                    dx: Math.random() * 2 - 1,
+                    dy: Math.random() * 3 + 2,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confetti.forEach((c) => {
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
+                ctx.fillStyle = c.color;
+                ctx.fill();
+                c.x += c.dx;
+                c.y += c.dy;
+                if (c.y > canvas.height) c.y = 0;
+            });
+            requestAnimationFrame(drawConfetti);
+        }
+
+        createConfetti();
+        drawConfetti();
+
+        // Surprise button effect
+        document.getElementById('surprise-button').addEventListener('click', () => {
+            alert('🎉 Wishing you an amazing 2024! 🎉');
+            document.body.style.background = 'linear-gradient(45deg, #4b79a1, #283e51)';
+        });
+    </script>
+</body>
+</html>
